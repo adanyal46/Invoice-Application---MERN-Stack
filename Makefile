@@ -10,10 +10,10 @@ down:
 down-v:
     docker compose -f local.yml down -v
 
-show-logs:
+logs:
     docker compose -f local.yml logs
 
-show-logs-api:
+logs-api:
     docker compose -f local.yml logs api
 
 show-logs-client:
