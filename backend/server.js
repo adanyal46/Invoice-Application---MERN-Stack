@@ -18,7 +18,7 @@ app.get("/api/v1/test", (req, res) => {
   res.json({ hi: "Welcome to then invoice app" });
 });
 
-const PORT =  process.env.PORT || 2002;
+const PORT =  process.env.PORT || 2003;
 
 app.listen(PORT, () => {
     console.log(`Server is running at ${PORT}`);

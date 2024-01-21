@@ -1,0 +1,35 @@
+# Set the Node.js version
+ARG NODE_VERSION=16-alpine3.12
+
+FROM node:${NODE_VERSION}
+
+LABEL name="mern-invoice" \
+      license="mern-invoice" \
+      description="MERN invoice image"
+
+ENV NODE_ENV=development
+ARG APP_HOME=/app
+
+WORKDIR ${APP_HOME}
+
+# Create a system user and group for running the application
+RUN addgroup --system invoice \
+    && adduser --system --ingroup invoice invoice
+
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application files
+COPY --chown=invoice:invoice . ${APP_HOME}
+
+# Set ownership for the application directory
+RUN chown invoice:invoice ${APP_HOME}
+
+# Switch to the invoice user
+USER invoice
+
+# Command to run the application
+CMD [ "npm", "run", "dev" ]
